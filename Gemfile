@@ -34,3 +34,11 @@ group :test do
   # Pretty printed test output
   gem 'turn', '0.8.2', :require => false
 end
+
+gem "twitter"
+gem "http"
+gem "rmagick"
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+end
