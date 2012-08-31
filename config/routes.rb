@@ -1,4 +1,5 @@
 Lifetiles::Application.routes.draw do
+  match "home/index/:id" => "home#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
