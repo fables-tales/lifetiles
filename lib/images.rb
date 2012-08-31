@@ -1,6 +1,7 @@
 require "singleton"
 require "twitter"
 require "http"
+require 'digest/md5'
 
 class ImageManager
 
@@ -23,4 +24,9 @@ class ImageManager
     thumb = img.resize_to_fill(200, 200)
     thumb.write path
   end
+
+  def self.get_md5(path)
+    Digest::MD5.hexdigest(File.read(path))
+  end
+
 end
