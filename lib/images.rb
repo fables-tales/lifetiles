@@ -1,19 +1,26 @@
-def get_twitter_profile(username)
-  url = Twitter.user(username)[:profile_image_url].gsub("_normal", "")
-  extension = url[-4..-1]
-  filename = "#{Random.rand(1000000000)}#{extension}"
+require "singleton"
+require "twitter"
+require "http"
 
-  result = Http.get url
+class ImageManager
 
-  handle = open("public/images/#{filename}", "wb")
-  handle.write(result)
-  handle.close()
+  def self.twitter_profile(username)
+    url = Twitter.user(username)[:profile_image_url].gsub("_normal", "")
+    extension = url[-4..-1]
+    filename = "#{Random.rand(1000000000)}#{extension}"
 
-  return filename
-end
+    result = Http.get url
 
-def resize_image(path)
-  img = (Magick::Image.read path)[0]
-  thumb = img.resize_to_fill(200, 200)
-  thumb.write path
+    handle = open("public/images/#{filename}", "wb")
+    handle.write(result)
+    handle.close()
+
+    return filename
+  end
+
+  def self.resize_image(path)
+    img = (Magick::Image.read path)[0]
+    thumb = img.resize_to_fill(200, 200)
+    thumb.write path
+  end
 end
