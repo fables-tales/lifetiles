@@ -8,6 +8,11 @@
             body {
                 margin:5px;
             }
+            img {
+                width:200px;
+                height:200px;
+                overflow:hidden;
+            }
             .tile {
                 float:left;
                 height:200px;
@@ -18,6 +23,7 @@
             }
             .new {
                 width:0px;
+                overflow:hidden;
             }
 
             .texthover {
@@ -70,7 +76,7 @@
                 $(".new").attr("class", "tile");
                 if (tiles.length > 0) {
                     tile = tiles.shift();
-                    $("body").prepend('<div class="tile new"><img src="' + tile["src"] +'"></img><div class="texthover">' + tile["text"] + '</div></div>');
+                    $("body").prepend('<div class="tile new"><img width="200" height="200" src="' + tile["src"] +'"></img><div class="texthover">' + tile["text"] + '</div></div>');
                     $(".new").animate({width:"200px"},kfade);
                     Holder.run();
                     $(".new").hover(hoverIn, hoverOut);
