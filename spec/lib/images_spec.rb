@@ -21,7 +21,6 @@ describe ImageManager do
     end
   end
 
-
   describe ImageManager, "#resize_image" do
     before(:all) do
       @name = ImageManager.twitter_profile("fnzcuvccra")
