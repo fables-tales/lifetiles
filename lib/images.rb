@@ -5,17 +5,19 @@ require 'digest/md5'
 
 class ImageManager
 
+  def self.get_image(url, path)
+    result = Http.get url
+    handle = open(path, "wb")
+    handle.write(result)
+    handle.close()
+  end
+
   def self.twitter_profile(username)
     url = Twitter.user(username)[:profile_image_url].gsub("_normal", "")
     extension = url[-4..-1]
     filename = "#{Random.rand(1000000000)}#{extension}"
 
-    result = Http.get url
-
-    handle = open("public/images/#{filename}", "wb")
-    handle.write(result)
-    handle.close()
-
+    ImageManager.get_image(url, "public/images/#{filename}")
     return filename
   end
 
