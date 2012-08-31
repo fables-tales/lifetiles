@@ -1,7 +1,16 @@
 class HomeController < ApplicationController
   def index
-    id = params[:id].to_i
-    render :text => Tile.where("id >= ?" , id).order("created_at").to_json
+    tiles = Tile.order("created_at")
+    id = params[:id]
+    t = []
+    i = 1
+    tiles.each do |tile|
+      t << {:id => i,
+            :description => tile.description,
+            :image => tile.image}
+      i += 1
+    end
+    render :text => t.to_json
   end
 
 end
