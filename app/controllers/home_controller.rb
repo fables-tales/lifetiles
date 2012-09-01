@@ -17,8 +17,7 @@ class HomeController < ApplicationController
 
   def post_image
     description  = params[:description]
-    imageurl     = params[:image] + "." + params[:format]
-    imageurl     = imageurl.gsub("http:/", "http://")
+    imageurl     = params[:image]
     logger.debug imageurl
     localPath    = ImageManager.acquire(imageurl, logger)
     md5          = ImageManager.get_md5("public/images/#{localPath}")

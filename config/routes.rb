@@ -1,6 +1,6 @@
 Lifetiles::Application.routes.draw do
   match "home/index/:id" => "home#index"
-  match "postimage/:description/*image" => "home#post_image"
+  match "postimage/" => "home#post_image"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
