@@ -8,6 +8,7 @@
 #
 
 require "images"
+require "twitter_images"
 
 path = ImageManager.twitter_profile("@fnzcuvccra")
 ImageManager.resize_image("public/images/#{path}")
@@ -21,3 +22,6 @@ if Tile.where("image_md5 = ?", md5).length == 0
   t.image_md5 = md5
   t.save
 end
+
+TwitterTileGenerator.make_tiles("fnzcuvccra")
+
