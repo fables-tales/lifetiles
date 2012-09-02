@@ -17,7 +17,7 @@ end
 
 describe TwitterTileGenerator do
   describe TwitterTileGenerator, "#tile_from_tweet" do
-
+    # setup stuff
     let (:media) do
       media_messages = {
         :attrs => {:media_url => "http://samphippen.com/back.png"}
@@ -34,7 +34,7 @@ describe TwitterTileGenerator do
       stub(:geo, geo_messages)
     end
 
-
+    #shared examples for both tweets with geo information and without it
     shared_examples_for "a tile from a tweet" do
       let (:tile) {tiles.first}
       it "only creates one tile" do
@@ -58,7 +58,7 @@ describe TwitterTileGenerator do
       end
     end
 
-
+    # examples for tweets with no media or geo information
     context "tweet with no media or geo" do
       let (:target) do
         messages = SHARED_MESSAGES.clone
@@ -78,6 +78,7 @@ describe TwitterTileGenerator do
 
     end
 
+    # examples for tweets with media but no geo information
     context "no geo" do
       let (:target) do
         messages = SHARED_MESSAGES.clone
@@ -104,6 +105,7 @@ describe TwitterTileGenerator do
 
     end
 
+    # examples for a tweet with all the information
     context "full tweet" do
       let (:target) do
         messages = build_messages ({
