@@ -7,5 +7,6 @@ class Tile < ActiveRecord::Base
     tile.save
     tile.created_at = creation_date unless creation_date == nil
     tile.save
+    return tile
   end
 end
