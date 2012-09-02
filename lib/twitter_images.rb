@@ -15,9 +15,16 @@ class TwitterTileGenerator
       ImageManager.resize_image(path)
       md5 = ImageManager.get_md5(path)
       if Tile.where("image_md5 = ?", md5).empty?
-        Tile.manufacture(tweet.text, "images/#{name}", tweet[:created_at])
+        tile = Tile.manufacture(tweet.text, "images/#{name}", tweet[:created_at])
+        if tweet.geo != nil
+          puts "geo"
+          tile.lat = tweet.geo.coordinates[0]
+          tile.long = tweet.geo.coordinates[1]
+          tile.save
+        end
       end
   end
+
   def self.make_tiles(user)
     tweets = Twitter.user_timeline(user, options = {:include_entities => true,
                                                     :count => 200})
