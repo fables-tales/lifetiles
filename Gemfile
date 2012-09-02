@@ -37,7 +37,7 @@ end
 
 gem "twitter"
 gem "http"
-gem "rmagick"
+gem 'rmagick', :require => false
 
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
