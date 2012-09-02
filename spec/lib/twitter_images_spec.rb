@@ -2,21 +2,22 @@ require "spec_helper"
 require "twitter_images.rb"
 
 
-def file_md5(path)
-  Digest::MD5.hexdigest(File.read(path))
-end
-
-SHARED_MESSAGES = {
-                    :text => "test tweet",
-                    :[] => [:created_at => DateTime.now]
-                  }
-
-def build_messages(messages)
-  SHARED_MESSAGES.merge(messages)
-end
 
 describe TwitterTileGenerator do
   describe TwitterTileGenerator, "#tile_from_tweet" do
+    def file_md5(path)
+      Digest::MD5.hexdigest(File.read(path))
+    end
+
+    SHARED_MESSAGES = {
+                        :text => "test tweet",
+                        :[] => [:created_at => DateTime.now]
+                      }
+
+    def build_messages(messages)
+      SHARED_MESSAGES.merge(messages)
+    end
+
     # setup stuff
     let (:media) do
       media_messages = {
@@ -34,11 +35,17 @@ describe TwitterTileGenerator do
       stub(:geo, geo_messages)
     end
 
+    subject do
+      TwitterTileGenerator.tile_from_tweet(target)
+      Tile.all
+    end
+
+    let (:tile) { subject.first }
+
     #shared examples for both tweets with geo information and without it
     shared_examples_for "a tile from a tweet" do
-      let (:tile) {tiles.first}
       it "only creates one tile" do
-        tiles.length.should == 1
+        subject.length.should == 1
       end
 
       it "should create a tile with the right description" do
@@ -67,11 +74,6 @@ describe TwitterTileGenerator do
         stub(:target, messages)
       end
 
-      subject do
-        TwitterTileGenerator.tile_from_tweet(target)
-        Tile.all
-      end
-
       it "should not create a tile" do
         subject.empty?.should == true
       end
@@ -89,17 +91,9 @@ describe TwitterTileGenerator do
         stub(:target, messages)
       end
 
-      subject do
-        TwitterTileGenerator.tile_from_tweet(target)
-        Tile.all
-      end
-
-      it_should_behave_like "a tile from a tweet" do
-        let(:tiles) { subject }
-      end
+      it_should_behave_like "a tile from a tweet"
 
       it "should have nil geo information" do
-        tile = subject.first
         [tile.lat, tile.long].should == [nil, nil]
       end
 
@@ -116,16 +110,7 @@ describe TwitterTileGenerator do
         stub(:target, messages)
       end
 
-      subject do
-        TwitterTileGenerator.tile_from_tweet(target)
-        Tile.all
-      end
-
-      let (:tile) { subject.first }
-
-      it_should_behave_like "a tile from a tweet" do
-        let (:tiles) { subject }
-      end
+      it_should_behave_like "a tile from a tweet"
 
       it "should have the right location" do
         [tile.lat, tile.long].should  == geo.coordinates
