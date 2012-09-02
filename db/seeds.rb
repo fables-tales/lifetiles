@@ -10,18 +10,18 @@
 require "images"
 require "twitter_images"
 
+puts "deleting all tiles!"
+Tile.delete_all
+
 path = ImageManager.twitter_profile("@fnzcuvccra")
 ImageManager.resize_image("public/images/#{path}")
 md5 = ImageManager.get_md5("public/images/#{path}")
 
 
 if Tile.where("image_md5 = ?", md5).length == 0
-  t = Tile.new()
-  t.description = "Twitter Profile Picture"
-  t.image = "images/#{path}"
-  t.image_md5 = md5
-  t.save
+  Tile.manufacture "Twitter Profile Picture", "images/#{path}"
 end
 
 TwitterTileGenerator.make_tiles("fnzcuvccra")
 
+puts "created some tiles: #{Tile.all.length}"
