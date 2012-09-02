@@ -5,7 +5,7 @@ class Tile < ActiveRecord::Base
     tile.image = image
     tile.image_md5 = ImageManager.get_md5("public/#{image}")
     tile.save
-    tile.created_at = creation_date unless creation_date = nil
+    tile.created_at = creation_date unless creation_date == nil
     tile.save
   end
 end
