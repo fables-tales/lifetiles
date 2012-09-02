@@ -98,8 +98,8 @@ describe TwitterTileGenerator do
       end
 
       it "should have nil geo information" do
-        subject.first.lat.should  == nil
-        subject.first.long.should == nil
+        tile = subject.first
+        [tile.lat, tile.long].should == [nil, nil]
       end
 
     end
