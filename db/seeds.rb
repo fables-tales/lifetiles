@@ -19,7 +19,10 @@ md5 = ImageManager.get_md5("public/images/#{path}")
 
 
 if Tile.where("image_md5 = ?", md5).length == 0
-  Tile.manufacture "Twitter Profile Picture", "images/#{path}"
+  tile = Tile.manufacture "Twitter Profile Picture", "images/#{path}"
+  tile.lat = 50.991259
+  tile.long = -1.494362
+  tile.save
 end
 
 TwitterTileGenerator.make_tiles("fnzcuvccra")
