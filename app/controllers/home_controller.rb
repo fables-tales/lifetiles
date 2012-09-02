@@ -22,7 +22,7 @@ class HomeController < ApplicationController
     description  = params[:description]
     imageurl     = params[:image]
     logger.debug imageurl
-    localPath    = ImageManager.acquire(imageurl, logger)
+    localPath    = ImageManager.acquire(imageurl)
     md5          = ImageManager.get_md5("public/images/#{localPath}")
     if Tile.where("image_md5 = ?", md5).length == 0
       t = Tile.new
