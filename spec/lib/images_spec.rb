@@ -33,8 +33,7 @@ describe ImageManager do
 
     it "resizes the image to 200x200" do
       img = (Magick::Image.read subject)[0]
-      img.bounding_box.width.should == 200
-      img.bounding_box.height.should == 200
+      [img.rows, img.columns].should == [200,200]
     end
 
     after(:all) do
