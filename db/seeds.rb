@@ -26,5 +26,6 @@ if Tile.where("image_md5 = ?", md5).length == 0
 end
 
 TwitterTileGenerator.make_tiles("fnzcuvccra")
+TwitterTileGenerator.make_tiles("besttechie")
 
 puts "created some tiles: #{Tile.all.length}"
