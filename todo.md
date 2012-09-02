@@ -4,7 +4,8 @@
 
 * ~~pull from spotify~~
 * ~~lightbox~~
-* geolocation
+* ~~geolocation~~
+* big images
 * links to source
 * time of creation
 * itunes integration
