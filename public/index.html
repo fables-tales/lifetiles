@@ -9,7 +9,7 @@
             body {
                 margin:5px;
             }
-            img {
+            .display-image {
                 width:200px;
                 height:200px;
                 overflow:hidden;
@@ -74,6 +74,9 @@
                             t = {}
                             t["text"] = tile["description"]
                             t["src"] = tile["image"]
+                            if ("loc" in tile) {
+                                t["loc"] = tile["loc"]
+                            }
                             tiles.push(t)
                             datums.push(t)
                             console.log("added a tile")
@@ -92,22 +95,36 @@
 
             kfade = 500
 
-            function setupDialog(text, img) {
-                $("#dialog").html("<p>" + text + "</p><img src='" + img +"'/>")
+            function setupDialog(text, img,loc) {
+                $("#dialog").html("<p>" + text + "</p><img src='" + img +"'/>");
+                if (loc != null) {
+                    url = "http://maps.googleapis.com/maps/api/staticmap?center="
+                        url += loc[0] + "," + loc[1] + "&"
+                        url += "zoom=11&size=500x500&markers=color:blue%7Clabel:|"
+                        url += loc[0] + "," + loc[1] + "&"
+                        url += "sensor=false"
+                        $("#dialog").append("<img src='" + url + "'>")
+                }
             }
 
             function addTile() {
                 $(".new").attr("class", "tile");
                 if (tiles.length > 0) {
                     tile = tiles.shift();
-                    $("body").prepend('<div class="tile new"><img width="200" height="200" src="' + tile["src"] +'"></img><div class="texthover">' + tile["text"] + '</div></div>');
+                    console.log(tile)
+                    $("body").prepend('<div class="tile new"><img class="display-image" width="200" height="200" src="' + tile["src"] +'"></img><div class="texthover">' + tile["text"] + '</div></div>');
                     $(".new").animate({width:"200px"},kfade);
                     var txt = tile["text"];
                     var img = tile["src"];
+                    var loc = null;
+                    if ("loc" in tile) {
+                        console.log("got a loc")
+                        loc = tile["loc"];
+                    }
                     Holder.run();
                     $(".new").hover(hoverIn, hoverOut);
                     $(".new").click(function(e) {
-                        setupDialog(txt,img);
+                        setupDialog(txt,img,loc);
                         $("#dialog").jqmShow();
                     });
                 }
