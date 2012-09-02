@@ -10,6 +10,11 @@ SHARED_MESSAGES = {
                     :text => "test tweet",
                     :[] => [:created_at => DateTime.now]
                   }
+
+def build_messages(messages)
+  SHARED_MESSAGES.merge(messages)
+end
+
 describe TwitterTileGenerator do
   describe TwitterTileGenerator, "#tile_from_tweet" do
 
@@ -100,13 +105,12 @@ describe TwitterTileGenerator do
     end
 
     context "full tweet" do
-
       let (:target) do
-        messages = SHARED_MESSAGES.clone
-        messages[:geo] = geo
-        messages[:has_media?] = true
-        messages[:media] = [media]
-
+        messages = build_messages ({
+                        :geo => geo,
+                        :has_media? => true,
+                        :media => [media]
+                       })
         stub(:target, messages)
       end
 
