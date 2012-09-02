@@ -1,5 +1,4 @@
-require "images"
-require "RMagick"
+require "spec_helper"
 
 describe ImageManager do
   describe ImageManager, "#twitter_profile" do
