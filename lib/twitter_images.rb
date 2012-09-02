@@ -1,5 +1,3 @@
-require "images"
-
 class Twitter::Tweet
   def has_media?
     not self[:media].empty?
