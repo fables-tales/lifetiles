@@ -31,23 +31,24 @@ describe TwitterTileGenerator do
 
 
     shared_examples_for "a tile from a tweet" do
+      let (:tile) {tiles.first}
       it "only creates one tile" do
         tiles.length.should == 1
       end
 
       it "should create a tile with the right description" do
-        tiles.first.description.should == target.text
+        tile.description.should == target.text
       end
 
       it "should create a tile with a 200x200 image" do
-        path = "public/#{tiles.first.image}"
+        path = "public/#{tile.image}"
         (Magick::Image.read path)[0].columns.should == 200
         (Magick::Image.read path)[0].rows.should == 200
       end
 
       it "should have the right md5" do
-        path = "public/#{tiles.first.image}"
-        tiles.first.image_md5.should == file_md5(path)
+        path = "public/#{tile.image}"
+        tile.image_md5.should == file_md5(path)
       end
     end
 
