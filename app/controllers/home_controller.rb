@@ -1,5 +1,6 @@
 require "images"
 
+# All the juicy application logic lives in this class
 class HomeController < ApplicationController
   def index
     tiles = Tile.order("created_at")

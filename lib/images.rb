@@ -4,6 +4,7 @@ require "http"
 require 'digest/md5'
 require "RMagick"
 
+# Useful functions to get and create images
 class ImageManager
 
   def self.get_image(url, path)

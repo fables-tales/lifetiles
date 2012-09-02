@@ -1,9 +1,11 @@
+# Exernal tweet class, we patch a has_media? method onto it
 class Twitter::Tweet
   def has_media?
     not self[:media].empty?
   end
 end
 
+# Class for generating tiles from twitter
 class TwitterTileGenerator
 
   def self.handle_geo(tweet, tile)
