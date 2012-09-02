@@ -42,8 +42,9 @@ describe TwitterTileGenerator do
 
       it "should create a tile with a 200x200 image" do
         path = "public/#{tile.image}"
-        (Magick::Image.read path)[0].columns.should == 200
-        (Magick::Image.read path)[0].rows.should == 200
+        img = (Magick::Image.read path)[0]
+        img.columns.should == 200
+        img.rows.should == 200
       end
 
       it "should have the right md5" do
@@ -114,13 +115,14 @@ describe TwitterTileGenerator do
         Tile.all
       end
 
+      let (:tile) { subject.first }
+
       it_should_behave_like "a tile from a tweet" do
         let (:tiles) { subject }
       end
 
       it "should have the right location" do
-        subject.first.lat.should  == geo.coordinates[0]
-        subject.first.long.should == geo.coordinates[1]
+        [tile.lat, tile.long].should  == geo.coordinates
       end
     end
   end
