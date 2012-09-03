@@ -74,7 +74,9 @@
                             t = {}
                             t["text"] = tile["description"]
                             t["src"] = tile["image"]
-                            t["bigimg"] = tile["bigimg"]
+                            if ("bigimg" in tile) {
+                                t["bigimg"] = tile["bigimg"]
+                            }
                             if ("loc" in tile) {
                                 t["loc"] = tile["loc"]
                             }
@@ -121,7 +123,10 @@
                     $(".new").animate({width:"200px"},kfade);
                     var txt = tile["text"];
                     var img = tile["src"];
-                    var bigimg = tile["bigimg"];
+                    var bigimg = tile["src"];
+                    if ("bigimg" in tile) {
+                        bigimg = tile["bigimg"]
+                    }
                     var loc = null;
                     if ("loc" in tile) {
                         console.log("got a loc")
