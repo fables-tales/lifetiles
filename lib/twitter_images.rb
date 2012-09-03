@@ -12,7 +12,6 @@ class TwitterTileGenerator
     if tweet.geo != nil
       tile.lat = tweet.geo.coordinates[0]
       tile.long = tweet.geo.coordinates[1]
-      tile.save
     end
   end
 
@@ -21,11 +20,14 @@ class TwitterTileGenerator
     media = tweet.media.first
     url = media.attrs[:media_url]
     name = ImageManager.acquire(url)
+    big  = ImageManager.acquire url, big=true
     path = "public/images/#{name}"
     md5 = ImageManager.get_md5(path)
     if Tile.where("image_md5 = ?", md5).empty?
       tile = Tile.manufacture(tweet.text, "images/#{name}", tweet[:created_at])
+      tile.big_image = "images/#{big}"
       self.handle_geo(tweet, tile)
+      tile.save
     end
   end
 
