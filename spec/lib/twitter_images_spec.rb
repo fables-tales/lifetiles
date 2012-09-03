@@ -20,18 +20,13 @@ describe TwitterTileGenerator do
 
     # setup stuff
     let (:media) do
-      media_messages = {
-        :attrs => {:media_url => "http://samphippen.com/back.png"}
-      }
-
+      url = "http://samphippen.com/back.png"
+      media_messages = {:attrs => {:media_url => url}}
       stub(:media, media_messages)
     end
 
     let (:geo) do
-      geo_messages = {
-        :coordinates => [51, -1]
-      }
-
+      geo_messages = {:coordinates => [51, -1]}
       stub(:geo, geo_messages)
     end
 
@@ -77,7 +72,6 @@ describe TwitterTileGenerator do
       it "should not create a tile" do
         subject.empty?.should == true
       end
-
     end
 
     # examples for tweets with media but no geo information
