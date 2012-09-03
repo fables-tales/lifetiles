@@ -6,7 +6,7 @@
 * ~~lightbox~~
 * ~~geolocation~~
 * ~~big images~~
-* links to source
+* ~~links to source~~
 * time of creation
 * itunes integration
 * track counts
