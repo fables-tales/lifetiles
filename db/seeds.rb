@@ -22,6 +22,7 @@ if Tile.where("image_md5 = ?", md5).length == 0
   tile = Tile.manufacture "Twitter Profile Picture", "images/#{path}"
   tile.lat = 50.991259
   tile.long = -1.494362
+  tile.link = "http://twitter.com/fnzcuvccra"
   tile.save
 end
 
