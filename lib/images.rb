@@ -15,18 +15,23 @@ class ImageManager
     handle.close()
   end
 
-  def self.acquire(url)
+  def self.acquire(url, big=false)
     extension = url[-4..-1]
     filename  = "#{Random.rand(10000000000)}#{extension}"
     path = "public/images/#{filename}"
     ImageManager.get_image(url, path)
-    ImageManager.resize_image(path)
+    size = big ? :big : :small
+    ImageManager.resize_image(path, size)
     return filename
   end
 
-  def self.resize_image(path)
+  def self.resize_image(path, size=:small)
     img = (Magick::Image.read path)[0]
-    thumb = img.resize_to_fill(200, 200)
+    if size == :small
+      thumb = img.resize_to_fill(200, 200)
+    else
+      thumb = img.resize_to_fill(700, 400)
+    end
     thumb.write path
   end
 
