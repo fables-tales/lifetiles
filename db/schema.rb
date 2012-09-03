@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902151615) do
+ActiveRecord::Schema.define(:version => 20120903143943) do
 
   create_table "tiles", :force => true do |t|
     t.string   "description"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20120902151615) do
     t.string   "image_md5"
     t.float    "lat"
     t.float    "long"
+    t.string   "big_image"
   end
 
 end
