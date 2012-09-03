@@ -74,6 +74,7 @@
                             t = {}
                             t["text"] = tile["description"]
                             t["src"] = tile["image"]
+                            t["link"] = tile["link"]
                             if ("bigimg" in tile) {
                                 t["bigimg"] = tile["bigimg"]
                             }
@@ -98,8 +99,8 @@
 
             kfade = 500
 
-            function setupDialog(text, img,loc, bigimg) {
-                $("#dialog").html("<p>" + text + "</p>");
+            function setupDialog(text, img,loc, bigimg, link) {
+                $("#dialog").html("<p><span>" + text + "</span><span><a href='" + link + "'>Source</a></span></p>");
                 if (loc != null) {
                     $("#dialog").append("<img style='float:left' src='" + bigimg +"'/>")
                     url = "http://maps.googleapis.com/maps/api/staticmap?center="
@@ -124,6 +125,7 @@
                     var txt = tile["text"];
                     var img = tile["src"];
                     var bigimg = tile["src"];
+                    var link = tile["link"];
                     if ("bigimg" in tile) {
                         bigimg = tile["bigimg"]
                     }
@@ -135,7 +137,7 @@
                     Holder.run();
                     $(".new").hover(hoverIn, hoverOut);
                     $(".new").click(function(e) {
-                        setupDialog(txt,img,loc,bigimg);
+                        setupDialog(txt,img,loc,bigimg, link);
                         $("#dialog").jqmShow();
                     });
                 }
