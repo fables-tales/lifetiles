@@ -1,7 +1,5 @@
 require "spec_helper"
-require "twitter_images.rb"
-
-
+require "twitter_images"
 
 describe TwitterTileGenerator do
   describe TwitterTileGenerator, "#tile_from_tweet" do
@@ -11,7 +9,8 @@ describe TwitterTileGenerator do
 
     SHARED_MESSAGES = {
                         :text => "test tweet",
-                        :[] => [:created_at => DateTime.now]
+                        :[] => [:created_at => DateTime.now],
+                        :link => "http://samphippen.com"
                       }
 
     def build_messages(messages)
