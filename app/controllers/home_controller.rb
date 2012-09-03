@@ -5,7 +5,8 @@ class HomeController < ApplicationController
   def self.map_tile(tile, i)
       hash = {:id => i,
               :description => tile.description,
-              :image => tile.image
+              :image => tile.image,
+              :link  => tile.link
              }
       hash[:bigimg] = tile.big_image     unless tile.big_image == nil
       hash[:loc] = [tile.lat, tile.long] unless tile.lat == nil
