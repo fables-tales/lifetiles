@@ -3,6 +3,14 @@ class Twitter::Tweet
   def has_media?
     not self[:media].empty?
   end
+
+  def link
+    ["http://twitter.com/",
+             self.attrs[:user][:screen_name],
+             "/status/",
+             self.attrs[:id_str]].join("")
+
+  end
 end
 
 # Class for generating tiles from twitter
@@ -26,6 +34,7 @@ class TwitterTileGenerator
     if Tile.where("image_md5 = ?", md5).empty?
       tile = Tile.manufacture(tweet.text, "images/#{name}", tweet[:created_at])
       tile.big_image = "images/#{big}"
+      tile.link = tweet.link
       self.handle_geo(tweet, tile)
       tile.save
     end
