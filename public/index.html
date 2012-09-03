@@ -74,6 +74,7 @@
                             t = {}
                             t["text"] = tile["description"]
                             t["src"] = tile["image"]
+                            t["bigimg"] = tile["bigimg"]
                             if ("loc" in tile) {
                                 t["loc"] = tile["loc"]
                             }
@@ -95,15 +96,19 @@
 
             kfade = 500
 
-            function setupDialog(text, img,loc) {
-                $("#dialog").html("<p>" + text + "</p><img src='" + img +"'/>");
+            function setupDialog(text, img,loc, bigimg) {
+                $("#dialog").html("<p>" + text + "</p>");
                 if (loc != null) {
+                    $("#dialog").append("<img style='float:left' src='" + bigimg +"'/>")
                     url = "http://maps.googleapis.com/maps/api/staticmap?center="
                         url += loc[0] + "," + loc[1] + "&"
-                        url += "zoom=11&size=500x500&markers=color:blue%7Clabel:|"
+                        url += "zoom=11&size=260x260&markers=color:blue%7Clabel:|"
                         url += loc[0] + "," + loc[1] + "&"
                         url += "sensor=false"
-                        $("#dialog").append("<img src='" + url + "'>")
+                        $("#dialog").append("<div style='float:left; text-align:center;'><img src='" + url + "' style='vertical-align:top;'><br>It happened here!</div>")
+                        $("#dialog").append("<div style='clear:both'></div>");
+                } else {
+                    $("#dialog").append("<img src='" + bigimg + "' style='margin-left:auto;margin-right:auto;display:block;'/>")
                 }
             }
 
@@ -116,6 +121,7 @@
                     $(".new").animate({width:"200px"},kfade);
                     var txt = tile["text"];
                     var img = tile["src"];
+                    var bigimg = tile["bigimg"];
                     var loc = null;
                     if ("loc" in tile) {
                         console.log("got a loc")
@@ -124,7 +130,7 @@
                     Holder.run();
                     $(".new").hover(hoverIn, hoverOut);
                     $(".new").click(function(e) {
-                        setupDialog(txt,img,loc);
+                        setupDialog(txt,img,loc,bigimg);
                         $("#dialog").jqmShow();
                     });
                 }
